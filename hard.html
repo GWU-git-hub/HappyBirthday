@@ -150,7 +150,7 @@
 	<!-- 第一組遊戲（置中，原本的） -->
 	<!-- 第一組遊戲：完整四張牌 -->
 	<div class="game-container animate-box">
-	  <h3 class="game-title">點擊翻開後記得截圖發給我喔</h3>
+	  <h3 class="game-title">所有都要點擊翻開後記得截圖發給我喔</h3>
 	  <div class="card-container" id="game1-cards">
 	    <div class="game-card" data-index="0">
 	      <div class="card-face card-front">?</div>
@@ -167,6 +167,30 @@
 	    <div class="game-card" data-index="3">
 	      <div class="card-face card-front">?</div>
 	      <div class="card-face card-back"></div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- 第二組遊戲：取消靠右對齊，改成置中 -->
+	<div class="game-container animate-box" style="margin-top: 60px;">
+	  <h3 class="game-title"></h3>
+	  <div class="card-container">
+	    <!-- 第一張牌固定為 + -->
+	    <div class="game-card" data-index="0">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back">+</div>
+	    </div>
+	    <div class="game-card" data-index="1">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back">?</div>
+	    </div>
+	    <div class="game-card" data-index="2">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back">?</div>
+	    </div>
+	    <div class="game-card" data-index="3">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back">?</div>
 	    </div>
 	  </div>
 	</div>
@@ -206,9 +230,9 @@
 	<script>
 	  document.addEventListener('DOMContentLoaded', () => {
 	  const numbers = [];
-	  numbers[0] = Math.random() < 0.5 ? 0 : 1;
+	  numbers[0] = 0;
 
-	  const pool = [0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,8,8,9,9];
+	  const pool = [0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,8,8,8,9,9,9,9,9];
 	  for (let i = 1; i <= 3; i++) {
 	    const idx = Math.floor(Math.random() * pool.length);
 	    numbers[i] = pool.splice(idx, 1)[0];
@@ -223,6 +247,29 @@
 	      if (this.classList.contains('flipped')) return;
 	      this.classList.add('flipped');
 	    });
+	  });
+	});
+	// 第二組遊戲後三張獨立隨機 0~9（不重複）
+	const numbersGroup2 = [];
+	const pool2 = [0,0,0,1,1,1,2,2,2,3,3,4,5,6];
+	for (let i = 1; i <= 3; i++) {
+	  const idx = Math.floor(Math.random() * pool2.length);
+	  numbersGroup2[i] = pool2.splice(idx, 1)[0];
+	}
+
+
+	// 綁定第二組遊戲
+	document.querySelectorAll('.game-container:last-of-type .game-card').forEach(card => {
+	  const idx = Number(card.dataset.index);
+	  if (idx === 0) {
+	    card.querySelector('.card-back').textContent = '+';
+	  } else {
+	    card.querySelector('.card-back').textContent = numbersGroup2[idx];
+	  }
+
+	  card.addEventListener('click', function() {
+	    if (this.classList.contains('flipped')) return;
+	    this.classList.add('flipped');
 	  });
 	});
 	</script>
