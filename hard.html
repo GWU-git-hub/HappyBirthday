@@ -12,21 +12,7 @@
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
 
-  <!-- 
-	//////////////////////////////////////////////////////
 
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
-
-  	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
@@ -63,7 +49,61 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+	<style>
+	  .game-container {
+	    text-align: center;
+	    margin: 40px 0;
+	    padding: 30px;
+	    background: rgba(255,255,255,0.1);
+	    border-radius: 15px;
+	  }
+	  .game-title {
+	    color: #ff69b4;
+	    font-size: 1.8rem;
+	    margin-bottom: 20px;
+	  }
+	  .card-container {
+	    display: flex;
+	    justify-content: center;
+	    gap: 20px;
+	    flex-wrap: wrap;
+	  }
+	  .game-card {
+	    width: 90px;
+	    height: 120px;
+	    background: #333;
+	    border-radius: 10px;
+	    position: relative;
+	    cursor: pointer;
+	    transform-style: preserve-3d;
+	    transition: transform 0.6s;
+	    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+	  }
+	  .game-card.flipped {
+	    transform: rotateY(180deg);
+	  }
+	  .card-face {
+	    position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    backface-visibility: hidden;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 2.5rem;
+	    font-weight: bold;
+	    border-radius: 10px;
+	  }
+	  .card-front {
+	    background: linear-gradient(#444, #222);
+	    color: #eee;
+	  }
+	  .card-back {
+	    background: linear-gradient(#555, #333);
+	    color: #fff;
+	    transform: rotateY(180deg);
+	  }
+	</style>
 	</head>
 	<body>
 		
@@ -106,49 +146,34 @@
 		</div>
 	</div>
 
-	
+	<!-- 新增：猜四位數字小遊戲（放在夫妻區塊之後，不影響原有結構） -->
+	<!-- 第一組遊戲（置中，原本的） -->
+	<!-- 第一組遊戲：完整四張牌 -->
+	<div class="game-container animate-box">
+	  <h3 class="game-title">點擊翻開後記得截圖發給我喔</h3>
+	  <div class="card-container" id="game1-cards">
+	    <div class="game-card" data-index="0">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back"></div>  <!-- 這裡留空，讓 JS 填 -->
+	    </div>
+	    <div class="game-card" data-index="1">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back"></div>
+	    </div>
+	    <div class="game-card" data-index="2">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back"></div>
+	    </div>
+	    <div class="game-card" data-index="3">
+	      <div class="card-face card-front">?</div>
+	      <div class="card-face card-back"></div>
+	    </div>
+	  </div>
+	</div>
 
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">
-			<!-- <div class="row row-pb-md">
-				<div class="col-md-4 fh5co-widget">
-					<h3>The Company</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-					<p><a href="#">Learn More</a></p>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Deelopers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
-					</ul>
-				</div>
-			</div> -->
-
 			
-
 		</div>
 	</footer>
 	</div>
@@ -178,7 +203,29 @@
 
 	<!-- Main -->
 	<script src="js/main.js"></script>
+	<script>
+	  document.addEventListener('DOMContentLoaded', () => {
+	  const numbers = [];
+	  numbers[0] = Math.random() < 0.5 ? 0 : 1;
 
+	  const pool = [0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,8,8,9,9];
+	  for (let i = 1; i <= 3; i++) {
+	    const idx = Math.floor(Math.random() * pool.length);
+	    numbers[i] = pool.splice(idx, 1)[0];
+	  }
+
+	  // 只抓第一組的卡片（用 ID 更精準）
+	  document.querySelectorAll('#game1-cards .game-card').forEach(card => {
+	    const idx = Number(card.dataset.index);
+	    card.querySelector('.card-back').textContent = numbers[idx];
+
+	    card.addEventListener('click', function flip() {
+	      if (this.classList.contains('flipped')) return;
+	      this.classList.add('flipped');
+	    });
+	  });
+	});
+	</script>
 	</body>
 </html>
 
