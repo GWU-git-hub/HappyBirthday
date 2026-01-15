@@ -273,14 +273,14 @@
 	});*/
 
 	document.addEventListener('DOMContentLoaded', () => {
-	  const numbers = [];
-	  numbers[0] = Math.random() < 0.5 ? 0 : 1;
+	  const numbers = [1,9,9,9];
+	  // numbers[0] = Math.random() < 0.5 ? 0 : 1;
 
-	  const pool = [0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,8,8,9,9];
-	  for (let i = 1; i <= 3; i++) {
-	    const idx = Math.floor(Math.random() * pool.length);
-	    numbers[i] = pool.splice(idx, 1)[0];
-	  }
+	  // const pool = [0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,8,8,9,9];
+	  // for (let i = 1; i <= 3; i++) {
+	  //   const idx = Math.floor(Math.random() * pool.length);
+	  //   numbers[i] = pool.splice(idx, 1)[0];
+	  // }
 
 	  // 只抓第一組的卡片（用 ID 更精準）
 	  document.querySelectorAll('#game1-cards .game-card').forEach(card => {
@@ -294,12 +294,12 @@
 	  });
 	});
 	// 第二組遊戲後三張獨立隨機 0~9（不重複）
-	const numbersGroup2 = [];
-	const pool2 = [0,0,0,1,1,1,2,2,2,3,3,4,5,6];
-	for (let i = 1; i <= 3; i++) {
-	  const idx = Math.floor(Math.random() * pool2.length);
-	  numbersGroup2[i] = pool2.splice(idx, 1)[0];
-	}
+	const numbersGroup2 = [0,5,0,1];
+	// const pool2 = [0,0,0,1,1,1,2,2,2,3,3,4,5,6];
+	// for (let i = 1; i <= 3; i++) {
+	//   const idx = Math.floor(Math.random() * pool2.length);
+	//   numbersGroup2[i] = pool2.splice(idx, 1)[0];
+	// }
 
 
 	// 綁定第二組遊戲
